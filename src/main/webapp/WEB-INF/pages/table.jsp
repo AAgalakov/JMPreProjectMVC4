@@ -52,7 +52,11 @@
             <td>${user.name}</td>
             <td>${user.password}</td>
             <td>${user.age}</td>
-            <td>${user.role}</td>
+            <td>
+                <c:forEach var="role" items="${user.roles}">
+                    <span>${role}</span><br><br>
+                </c:forEach>
+            </td>
             <td>
                 <form action="/updateUserForm/${user.id}" method="get">
                     <button name="id" value="${user.id}" type="submit" >Edit</button>
@@ -71,16 +75,20 @@
             <td><input name="name" placeholder="Name"/></td>
             <td><input name="password" placeholder="Password"/></td>
             <td><input name="age" placeholder="Age" type="number" min=1/></td>
-            <td style="text-align: center"><select name="role">
-                <option selected="selected">user</option>
-                <option>admin</option>
-            </select></td>
+            <td style="text-align: center">
+                <select name="roles" multiple>
+                    <option selected="selected">user</option>
+                    <option>admin</option>
+                </select>
+            </td>
             <td colspan="2">
                 <button>Add new user</button>
             </td>
         </form>
     </tr>
 </table>
-<%--<a href="?lang=en">en</a> | <a href="?lang=ru">ru</a>--%>
+<form action="/logout" method="GET">
+    <input type="submit" value="Log out">
+</form>
 </body>
 </html>

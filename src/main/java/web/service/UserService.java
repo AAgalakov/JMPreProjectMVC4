@@ -1,19 +1,25 @@
 package web.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import web.dto.UserDto;
 import web.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     List<User> allUsers();
 
-    void addUser(User user);
+    boolean addUser(UserDto userDto);
 
-    void updateUser(User user);
+    boolean updateUser(UserDto userDto);
 
     void deleteUser(long id);
 
     User getUserById(long id);
+
+    @Override
+    UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
 }

@@ -35,7 +35,7 @@
             <td style="text-align: center"><input name="name" value="${user.name}"/></td>
             <td style="text-align: center"><input name="password" value="${user.password}"/></td>
             <td style="text-align: center"><input name="age" value="${user.age}" type="number" min=1/></td>
-            <td style="text-align: center"><select name="role">
+            <td style="text-align: center"><select name="roles" multiple>
                 <option selected="selected">user</option>
                 <option>admin</option>
             </select></td>

@@ -1,41 +1,60 @@
 package web.model;
 
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import web.dto.UserDto;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String name;
 
-    private int age;
+    private Integer age;
 
     private String password;
 
-    //    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.DETACH})
-//    @JoinTable(name = "user_roles",
-//            joinColumns = @JoinColumn(
-//                    name = "user_id",
-//                    referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(
-//                    name = "role_id",
-//                    referencedColumnName = "id")
-//    )
-    private String role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id",
+                    referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id",
+                    referencedColumnName = "id")
+    )
+    private Set<Role> roles;
 
     public User() {
     }
 
-    public User(String name, int age, String password, String role) {
+    public User(UserDto userDto) {
+        if (userDto.getId() != null) {
+            this.id = userDto.getId();
+        } else {
+            this.id = null;
+        }
+        this.name = userDto.getName();
+        this.password = userDto.getPassword();
+        this.age = userDto.getAge();
+        this.roles = new HashSet<>();
+    }
+
+    public User(String name, Integer age, String password) {
         this.name = name;
         this.age = age;
         this.password = password;
-        this.role = role;
+//        this.role = role;
     }
 
     public long getId() {
@@ -70,17 +89,52 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<Role> role) {
+        this.roles = role;
     }
 
-    //    public User(String name, String password, String role) {
-//        this.name = name;
-//        this.password = password;
-//        this.role = role;
-//    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return name;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", password='" + password + '\'' +
+                ", role=" + roles +
+                '}';
+    }
 }
