@@ -30,15 +30,27 @@
         <th> Action</th>
     </tr>
     <tr>
-        <form action="/editUser" method="post">
+<%--        <form action="/editUser" method="post">--%>
+<%--            <td style="text-align: center"> ${user.id}</td>--%>
+<%--            <td style="text-align: center"><input name="name" value="${user.name}"/></td>--%>
+<%--            <td style="text-align: center"><input name="password" value="${user.password}"/></td>--%>
+<%--            <td style="text-align: center"><input name="age" value="${user.age}" type="number" min=1/></td>--%>
+<%--            <td style="text-align: center"><select name="roles" multiple>--%>
+<%--                <option selected="selected">user</option>--%>
+<%--                <option>admin</option>--%>
+<%--            </select></td>--%>
+<%--            <td style="text-align: center">--%>
+<%--                <button name="id" value="${user.id}">Submit</button>--%>
+<%--            </td>--%>
+<%--        </form>--%>
+        <form action="/admin/editUser" method="post">
             <td style="text-align: center"> ${user.id}</td>
             <td style="text-align: center"><input name="name" value="${user.name}"/></td>
             <td style="text-align: center"><input name="password" value="${user.password}"/></td>
             <td style="text-align: center"><input name="age" value="${user.age}" type="number" min=1/></td>
-            <td style="text-align: center"><select name="roles" multiple>
-                <option selected="selected">user</option>
-                <option>admin</option>
-            </select></td>
+            <td style="text-align: center">
+                <input type="checkbox" name="roles" value="admin" >admin<Br>
+                <input type="checkbox" checked="true" name="roles" value="user">user<Br>
             <td style="text-align: center">
                 <button name="id" value="${user.id}">Submit</button>
             </td>

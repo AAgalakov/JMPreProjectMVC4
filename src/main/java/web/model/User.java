@@ -119,13 +119,13 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
-    }
+        return true;
+    }// todo было false
 
     @Override
     public boolean isEnabled() {
-        return false;
-    }
+        return true;
+    } //todo было false
 
     @Override
     public String toString() {
@@ -134,7 +134,7 @@ public class User implements UserDetails {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", password='" + password + '\'' +
-                ", role=" + roles +
+//                ", role=" + roles +
                 '}';
     }
 }

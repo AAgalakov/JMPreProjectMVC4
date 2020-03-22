@@ -42,9 +42,6 @@
         <th> User role</th>
         <th> Edit </th>
         <th> Delete </th>
-<%--        <th colspan="2"> Action</th>--%>
-<%--        <th></th>--%>
-
     </tr>
     <c:forEach var="user" items="${userList}">
         <tr>
@@ -58,28 +55,43 @@
                 </c:forEach>
             </td>
             <td>
-                <form action="/updateUserForm/${user.id}" method="get">
+                <form action="/admin/updateUserForm/${user.id}" method="get">
                     <button name="id" value="${user.id}" type="submit" >Edit</button>
                 </form>
             </td>
             <td>
-                <form action="/delete/${user.id}" method="get">
+                <form action="/admin/delete/${user.id}" method="get">
                     <button name="id" value="${user.id}" type="submit" >Delete</button>
                 </form>
             </td>
         </tr>
     </c:forEach>
     <tr>
-        <form action="/userAdd" method="post">
+<%--        <form action="/userAdd" method="post">--%>
+<%--            <td></td>--%>
+<%--            <td><input name="name" placeholder="Name"/></td>--%>
+<%--            <td><input name="password" placeholder="Password"/></td>--%>
+<%--            <td><input name="age" placeholder="Age" type="number" min=1/></td>--%>
+<%--            <td style="text-align: center">--%>
+<%--                <select name="roles" multiple>--%>
+<%--                    <option selected="selected">user</option>--%>
+<%--                    <option>admin</option>--%>
+<%--                </select>--%>
+<%--            </td>--%>
+<%--            <td colspan="2">--%>
+<%--                <button>Add new user</button>--%>
+<%--            </td>--%>
+<%--        </form> --%>
+        <form action="/admin/userAdd" method="post">
             <td></td>
             <td><input name="name" placeholder="Name"/></td>
             <td><input name="password" placeholder="Password"/></td>
             <td><input name="age" placeholder="Age" type="number" min=1/></td>
             <td style="text-align: center">
-                <select name="roles" multiple>
-                    <option selected="selected">user</option>
-                    <option>admin</option>
-                </select>
+<%--                <select name="roles" multiple>--%>
+                    <input type="checkbox" name="roles" value="admin" >admin<Br>
+                    <input type="checkbox" checked="true" name="roles" value="user">user<Br>
+<%--                </select>--%>
             </td>
             <td colspan="2">
                 <button>Add new user</button>

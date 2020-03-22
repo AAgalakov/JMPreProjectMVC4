@@ -12,7 +12,7 @@
 </head>
 <body>
 
-Hello, ${user.name}!
+Hello, ${name}!
 
 <form action="/logout" method="GET">
     <input type="submit" value="Log out">

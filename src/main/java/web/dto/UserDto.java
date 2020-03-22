@@ -5,7 +5,6 @@ import web.model.User;
 
 import java.util.Arrays;
 
-
 public class UserDto {
     private Long id;
     private String name;
@@ -13,8 +12,7 @@ public class UserDto {
     private Integer age;
     private String[] roles;
 
-    public UserDto() {
-    }
+    public UserDto() {}
 
     public UserDto(User user) {
         id = user.getId();

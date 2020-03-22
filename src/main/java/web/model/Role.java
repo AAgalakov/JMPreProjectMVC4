@@ -19,9 +19,10 @@ public class Role implements GrantedAuthority {
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<User> users;
 
-    public Role(){}
+    public Role() {
+    }
 
-    public Role(Long id, String nameRole){
+    public Role(Long id, String nameRole) {
         this.id = id;
         this.nameRole = nameRole;
     }
@@ -55,7 +56,7 @@ public class Role implements GrantedAuthority {
         return "Role{" +
                 "id=" + id +
                 ", nameRole='" + nameRole + '\'' +
-                ", users=" + users +
+//                ", users=" + users +
                 '}';
     }
 

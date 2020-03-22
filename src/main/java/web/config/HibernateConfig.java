@@ -40,26 +40,7 @@ public class HibernateConfig {
         dataSource.setPassword(env.getProperty("db.password"));
         return dataSource;
     }
-//todo view и hadlers вынести из hiber'а done
 
-//    @Bean
-//    public LocalSessionFactoryBean getSessionFactory() {
-//        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-//        factoryBean.setDataSource(getDataSource());
-//
-//        factoryBean.setHibernateProperties(getProper());
-//        factoryBean.setAnnotatedClasses(User.class);
-//        return factoryBean;
-//    }
-////
-//    @Bean
-//    public HibernateTransactionManager getTransactionManager() {
-//        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-//        transactionManager.setSessionFactory(getSessionFactory().getObject());
-//        return transactionManager;
-//    }
-
-    //настройки entity manager
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em

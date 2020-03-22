@@ -5,9 +5,11 @@ import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -29,14 +31,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByName(String name) {
+    public Optional<User> getUserByName(String name) {
+        User user = null;
         try {
-            return entityManager.createQuery("SELECT t FROM User t WHERE name =:name", User.class)
-                    .setParameter("name", name)
+            user = entityManager.createQuery("SELECT t FROM User t WHERE t.name =:name", User.class)
+                    .setParameter("name", name)//изменить запрос
                     .getSingleResult();
-        } catch (Exception e) {
-            return null;
+        } catch (NoResultException e) {
+            e.printStackTrace();
         }
+        return Optional.ofNullable(user);
     }
 
     @Override

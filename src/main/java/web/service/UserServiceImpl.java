@@ -1,19 +1,17 @@
 package web.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import web.controllers.UserController;
 import web.dao.UserDao;
 import web.dto.UserDto;
 import web.model.User;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -21,18 +19,18 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static Logger log = Logger.getLogger(UserController.class.getName());
+    private static Logger log = Logger.getLogger(UserServiceImpl.class.getName());
 
     private UserDao userDao;
 
     private RoleService roleService;
 
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserDao userDao, RoleService roleService) {
         this.userDao = userDao;
         this.roleService = roleService;
-//        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -73,20 +71,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return Optional.of(userDao.getUserByName(s)).orElseThrow(IllegalAccessError::new);
+        return userDao.getUserByName(s).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     private void setRoles(User user, UserDto userDto) {
-        user.setRoles(Arrays.stream(userDto.getRoles())// "user" , "admin"
-                .map(role -> roleService.getRoleByName(role)) // Role "user"; Role "admin"
+        user.setRoles(Arrays.stream(userDto.getRoles())
+                .map(role -> roleService.getRoleByName(role))
                 .collect(Collectors.toSet()));
     }
 
     private boolean isNameUnique(UserDto userDto) {
-        return userDao.getUserByName(userDto.getName()) == null;
+        return !userDao.getUserByName(userDto.getName()).isPresent();
     }
 
-    private User fromForm(UserDto userDto){
+    private User fromForm(UserDto userDto) {
         User user = new User(userDto);
         setRoles(user, userDto);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));

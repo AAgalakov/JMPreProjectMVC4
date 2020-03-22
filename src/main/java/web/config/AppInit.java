@@ -1,13 +1,10 @@
 package web.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
-
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -25,6 +22,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
         };
     }
 
+    @NotNull
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
@@ -34,7 +32,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
-        return new Filter[] {characterEncodingFilter};
+        return new Filter[]{characterEncodingFilter};
     }
 
 
