@@ -54,7 +54,6 @@ public class User implements UserDetails {
         this.name = name;
         this.age = age;
         this.password = password;
-//        this.role = role;
     }
 
     public long getId() {
@@ -120,12 +119,12 @@ public class User implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
-    }// todo было false
+    }
 
     @Override
     public boolean isEnabled() {
         return true;
-    } //todo было false
+    }
 
     @Override
     public String toString() {

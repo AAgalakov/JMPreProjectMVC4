@@ -13,9 +13,12 @@
     <title>User Info</title>
 </head>
 <body>
-<form action="/table" method="get">
+<form action="/admin" method="get">
     Name is already used
     <button>Back</button>
+</form>
+<form action="/logout" method="GET">
+    <input type="submit" value="Log out">
 </form>
 </body>
 </html>

@@ -70,8 +70,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByName(String name) throws UsernameNotFoundException {
+        return userDao.getUserByName(name).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userDao.getUserByName(s).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return getUserByName(s);
     }
 
     private void setRoles(User user, UserDto userDto) {

@@ -8,9 +8,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%--<%@ taglib uri="http://www.springframework.org/tags" prefix="locale" %>--%>
-
-
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -66,32 +63,14 @@
             </td>
         </tr>
     </c:forEach>
-    <tr>
-<%--        <form action="/userAdd" method="post">--%>
-<%--            <td></td>--%>
-<%--            <td><input name="name" placeholder="Name"/></td>--%>
-<%--            <td><input name="password" placeholder="Password"/></td>--%>
-<%--            <td><input name="age" placeholder="Age" type="number" min=1/></td>--%>
-<%--            <td style="text-align: center">--%>
-<%--                <select name="roles" multiple>--%>
-<%--                    <option selected="selected">user</option>--%>
-<%--                    <option>admin</option>--%>
-<%--                </select>--%>
-<%--            </td>--%>
-<%--            <td colspan="2">--%>
-<%--                <button>Add new user</button>--%>
-<%--            </td>--%>
-<%--        </form> --%>
         <form action="/admin/userAdd" method="post">
             <td></td>
             <td><input name="name" placeholder="Name"/></td>
             <td><input name="password" placeholder="Password"/></td>
             <td><input name="age" placeholder="Age" type="number" min=1/></td>
             <td style="text-align: center">
-<%--                <select name="roles" multiple>--%>
                     <input type="checkbox" name="roles" value="admin" >admin<Br>
                     <input type="checkbox" checked="true" name="roles" value="user">user<Br>
-<%--                </select>--%>
             </td>
             <td colspan="2">
                 <button>Add new user</button>

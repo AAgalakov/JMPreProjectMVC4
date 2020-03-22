@@ -20,6 +20,8 @@ public interface UserService extends UserDetailsService {
 
     User getUserById(long id);
 
+    User getUserByName(String name);
+
     @Override
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
 }
